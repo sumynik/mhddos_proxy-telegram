@@ -30,7 +30,7 @@
 
 >git clone https://github.com/sumynik/mhddos_proxy-telegram.git && cd mhddos_proxy-telegram/
 
-Змініть значення згідно інформації яку ви отримали раніше.
+Змініть значення згідно інформації яку ви отримали раніше в файлі **mhddos_setup.sh**.
 
 <img src="img/user_data.png" alt="Налаштування змінних" width="900"/>
 
