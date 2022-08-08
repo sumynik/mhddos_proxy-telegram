@@ -64,6 +64,11 @@ VERSION=$(sed -n "8p" $LOGS | cut -c 48-51)
 # Get number of threads
 THREADS=$(grep -o Threads.* $LOGS| tail -n 1 | cut -d' ' -f 2)
 
+if [ "file" == $THREADS ]
+then
+	THREADS=$(grep -oa Threads.* $LOGS| tail -n 1 | cut -d' ' -f 2)
+fi
+
 # Compose a message
 message="*Хост*: \`\`\`$(hostname)\`\`\`"
 message+="%0A"
