@@ -39,9 +39,25 @@ fi
 
 # Get average statistic for the all time
 CAPACITY_ALL=$(echo "scale=1; $(grep -o "Capacity.*%" $LOGS | cut -d' ' -f2 | sed s/%//g | xargs  | sed -e 's/\ /+/g' | bc)/$(grep -o "Capacity.*%" $LOGS| wc -l)" | bc)
+if [ "0" == $CAPACITY_ALL ]
+then
+	CAPACITY_ALL=$(echo "scale=1; $(grep -oa "Capacity.*%" $LOGS | cut -d' ' -f2 | sed s/%//g | xargs  | sed -e 's/\ /+/g' | bc)/$(grep -oa "Capacity.*%" $LOGS| wc -l)" | bc)
+fi
 CONNECTIONS_ALL=$(echo "scale=0; $(grep -oE "Connections: [0-9]*," $LOGS | cut -d' ' -f2 | sed s/,//g | xargs  | sed -e 's/\ /+/g' | bc)/$(grep -oE "Connections: [0-9]*," $LOGS | wc -l)" | bc)
+if [ "0" == $CONNECTIONS_ALL ]
+then
+	CONNECTIONS_ALL=$(echo "scale=0; $(grep -oEa "Connections: [0-9]*," $LOGS | cut -d' ' -f2 | sed s/,//g | xargs  | sed -e 's/\ /+/g' | bc)/$(grep -oEa "Connections: [0-9]*," $LOGS | wc -l)" | bc)
+fi
 PACKETS_ALL=$(echo "scale=1; $(grep -oE "Packets: [0-9.]*k" $LOGS | cut -d' ' -f2 | sed s/k//g | xargs  | sed -e 's/\ /+/g' | bc)/$(grep -oE "Packets: [0-9.]*k" $LOGS | wc -l)" | bc)
+if [ "0" == $PACKETS_ALL ]
+then
+	PACKETS_ALL=$(echo "scale=1; $(grep -oEa "Packets: [0-9.]*k" $LOGS | cut -d' ' -f2 | sed s/k//g | xargs  | sed -e 's/\ /+/g' | bc)/$(grep -oEa "Packets: [0-9.]*k" $LOGS | wc -l)" | bc)
+fi
 TRAFFIC_ALL=$(echo "scale=1; $(grep -oE "Traffic: [0-9.]* MBit" $LOGS | cut -d' ' -f2 | sed s/k//g | xargs  | sed -e 's/\ /+/g' | bc)/$(grep -oE "Traffic: [0-9.]* MBit" $LOGS | wc -l)" | bc)
+if [ "0" == $TRAFFIC_ALL ]
+then
+	TRAFFIC_ALL=$(echo "scale=1; $(grep -oEa "Traffic: [0-9.]* MBit" $LOGS | cut -d' ' -f2 | sed s/k//g | xargs  | sed -e 's/\ /+/g' | bc)/$(grep -oEa "Traffic: [0-9.]* MBit" $LOGS | wc -l)" | bc)
+fi
 
 # Create table with statistic
 STATS=$(cat <<-END
