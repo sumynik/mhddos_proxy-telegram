@@ -30,16 +30,17 @@ rm \$tmpfile
 EOF
 chmod u+x tg.sh
 
+if [ "$USER_ID" != "" ]; then
 cat > mhddos_start.sh <<EOF
 #!/bin/bash
-USER_ID=$USER_ID
-# Run mhddos_proxy
-if [ "$USER_ID" != "" ]; then
-  $(pwd)/mhddos_proxy_linux --user-id $USER_ID --lang en > $(pwd)/mhddos.log 2>&1 &
-else
-  $(pwd)/mhddos_proxy_linux --lang en > $(pwd)/mhddos.log 2>&1 &
-fi
+$(pwd)/mhddos_proxy_linux --user-id $USER_ID --lang en > $(pwd)/mhddos.log 2>&1 &
 EOF
+else
+cat > mhddos_start.sh <<EOF
+#!/bin/bash
+$(pwd)/mhddos_proxy_linux --lang en > $(pwd)/mhddos.log 2>&1 &
+EOF
+fi
 chmod u+x mhddos_start.sh
 
 # Run mhddos_proxy
