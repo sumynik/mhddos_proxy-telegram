@@ -35,9 +35,9 @@ cat > mhddos_start.sh <<EOF
 USER_ID=$USER_ID
 # Run mhddos_proxy
 if [ "$USER_ID" != "" ]; then
-  ./mhddos_proxy_linux --user-id $USER_ID --lang en > $(pwd)/mhddos.log 2>&1 &
+  $(pwd)/mhddos_proxy_linux --user-id $USER_ID --lang en > $(pwd)/mhddos.log 2>&1 &
 else
-  ./mhddos_proxy_linux --lang en > $(pwd)/mhddos.log 2>&1 &
+  $(pwd)/mhddos_proxy_linux --lang en > $(pwd)/mhddos.log 2>&1 &
 fi
 EOF
 chmod u+x mhddos_start.sh
