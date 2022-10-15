@@ -53,22 +53,22 @@ cat > cronjob <<EOF
 # Shutdown the process at 22 UTC (1AM MSK) time
 0 22 * * * /bin/bash $(pwd)/mhddos_stop.sh
 # Turn on the process at 5 UTC (8AM MSK) time
-0 5 * * * $(pwd)/mhddos_start.sh
+0 5 * * * /bin/bash $(pwd)/mhddos_start.sh
 # Send notifications every $NOTIFY_EVERY_HOUR hours
 0 7-20/$NOTIFY_EVERY_HOUR * * * cd $(pwd) && /bin/bash tg.sh > tg.log 2>&1
 # Restart the process every 2 hours
-15 7-20/2 * * * /bin/bash $(pwd)/mhddos_stop.sh && $(pwd)/mhddos_start.sh
+15 7-20/2 * * * /bin/bash $(pwd)/mhddos_stop.sh && /bin/bash $(pwd)/mhddos_start.sh
 # Start the process automatically after reboot
-@reboot $(pwd)/mhddos_start.sh
+@reboot /bin/bash $(pwd)/mhddos_start.sh
 EOF
 else
 cat > cronjob <<EOF
 # Send notifications every $NOTIFY_EVERY_HOUR hours
 0 */$NOTIFY_EVERY_HOUR * * * cd $(pwd) && /bin/bash tg.sh > tg.log 2>&1
 # Restart the process every 2 hours
-15 */2 * * * /bin/bash $(pwd)/mhddos_stop.sh && $(pwd)/mhddos_start.sh
+15 */2 * * * /bin/bash $(pwd)/mhddos_stop.sh && /bin/bash $(pwd)/mhddos_start.sh
 # Start the process automatically after reboot
-@reboot $(pwd)/mhddos_start.sh
+@reboot /bin/bash $(pwd)/mhddos_start.sh
 EOF
 fi
 crontab cronjob

@@ -4,7 +4,7 @@
 set -x
 
 # Static link to targets health checks
-HEALTH_URL="https://itarmy.com.ua/check/"
+HEALTH_URL="https://itarmy.com.ua/statistics/"
 
 # Save large output to a file
 LOGS=$(pwd)/mhddos.log
@@ -102,7 +102,7 @@ END
 )
 
 # Generate a button link to targets health report
-keyboard="{\"inline_keyboard\":[[{\"text\":\"Відкрити звіт про стан цілей\", \"url\":\"${HEALTH_URL}\"}]]}"
+keyboard="{\"inline_keyboard\":[[{\"text\":\"Статистика DDOS атаки\", \"url\":\"${HEALTH_URL}\"}]]}"
 
 # Send to Telegram
 curl -s --data "text=${message}" \
