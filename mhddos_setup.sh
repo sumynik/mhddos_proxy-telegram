@@ -4,7 +4,8 @@
 TG_TOKEN="YOUR TELEGRAM TOKEN"      # Specify your TG token
 TG_CHAT_ID="YOUR TELEGRAM CHAT ID"  # Specify your TG chat ID
 NOTIFY_EVERY_HOUR=2                 # Notify every X hours
-NIGHT_SILENCE=true                  # If 'true', disable attack between 1AM and 8AM MSK (for costs saving)
+COPIES="1"                          # Run multiple copies (set "auto" for max value, requires 3+ core CPU and stable network)
+NIGHT_SILENCE=false                 # If 'true', disable attack between 1AM and 8AM MSK (for costs saving)
 WGET_ARM64=false                    # If 'true', download for aarch64 (arm64) version
 USER_ID=                            # User ID from bot "It Army Statistics"
 ##############################
@@ -33,12 +34,12 @@ chmod u+x tg.sh
 if [ "$USER_ID" != "" ]; then
 cat > mhddos_start.sh <<EOF
 #!/bin/bash
-$(pwd)/mhddos_proxy_linux --user-id $USER_ID --lang en > $(pwd)/mhddos.log 2>&1 &
+$(pwd)/mhddos_proxy_linux --copies=$COPIES --user-id $USER_ID --lang en > $(pwd)/mhddos.log 2>&1 &
 EOF
 else
 cat > mhddos_start.sh <<EOF
 #!/bin/bash
-$(pwd)/mhddos_proxy_linux --lang en > $(pwd)/mhddos.log 2>&1 &
+$(pwd)/mhddos_proxy_linux --copies=$COPIES --lang en > $(pwd)/mhddos.log 2>&1 &
 EOF
 fi
 chmod u+x mhddos_start.sh
